@@ -41,7 +41,9 @@ Se eligió SQLite, dado que el dataset es pequeño (10, 000 registros), en este 
 Se implementó FastAPI, y se tomaron los endpoint *GET /sales/monthly*, así como *GET /sales/top*. Se limpiaron los valores no compatibles con JSON, así como los valores NULL.
 El acceso se da mediante
 ´´´
+{
 http:localhost:8000/docs
+}
 ´´´
 
 ### Visualización
@@ -53,7 +55,9 @@ De la misma forma, se emplea una Notebook de Jupyter para mostrar el proceso de 
 ### Dockerización
 Para esta prueba se utilizó Docker para garantizar reproductibilidad y portabilidad, aislar el entorno, aislar dependencias locales. Se ejecuta desde
 ´´´
+{
 docker compose up --build
+}
 ´´´
 
 

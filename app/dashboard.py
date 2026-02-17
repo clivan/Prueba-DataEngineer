@@ -9,7 +9,7 @@ def ensure_output_dir():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def sales_trend():
-    query = """
+    query="""
     SELECT d.year, d.month, SUM(f.total) AS total
     FROM fact_sales f
     JOIN dim_date d ON f.date_id = d.date_id
@@ -18,31 +18,30 @@ def sales_trend():
     """
 
     with get_connection() as conn:
-        df = pd.read_sql(query, conn)
+        df=pd.read_sql(query, conn)
 
     if df.empty:
         print("No hay datos para tendencia histórica.")
         return
 
-    # Limpiar posibles NULLs
-    df = df.dropna(subset=["year", "month", "total"])
+    df=df.dropna(subset=["year", "month", "total"])
 
     if df.empty:
         print("Todos los registros eran nulos.")
         return
 
     # Convertir tipos
-    df["year"] = df["year"].astype(int)
-    df["month"] = df["month"].astype(int)
-    df["total"] = pd.to_numeric(df["total"], errors="coerce")
+    df["year"]=df["year"].astype(int)
+    df["month"]=df["month"].astype(int)
+    df["total"]=pd.to_numeric(df["total"], errors="coerce")
 
     # Construir fecha real
-    df["date"] = pd.to_datetime(
+    df["date"]=pd.to_datetime(
         df["year"].astype(str) + "-" +
         df["month"].astype(str).str.zfill(2) + "-01"
     )
 
-    df = df.sort_values("date")
+    df=df.sort_values("date")
 
     plt.figure()
     plt.plot(df["date"], df["total"])
@@ -67,7 +66,7 @@ def pending_amount():
     """
 
     with get_connection() as conn:
-        df = pd.read_sql(query, conn)
+        df=pd.read_sql(query, conn)
 
     if df.empty:
         print("No hay datos pendientes.")
